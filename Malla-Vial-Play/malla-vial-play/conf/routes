@@ -7,3 +7,35 @@ GET     /                           controllers.HomeController.index()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+
+# Routes
+# This file defines all application routes (Higher priority routes first)
+
+# Routes for Segmentos
+# This file defines all application routes (Higher priority routes first)
+
+
+# Rutas para el CRUD de Segmentos
+GET     /segmentos            controllers.SegmentoControlador.getSegmentos
+POST    /segmentos            controllers.SegmentoControlador.createSegmento
+PUT     /segmentos/:id            controllers.SegmentoControlador.updateSegmento(id: Long, direccion: String, longitud:String)
+DELETE  /segmentos/:id            controllers.SegmentoControlador.deleteSegmento(id: Long)
+
+
+
+
+
+
+
+
+# Routes for Bordillos (Kerbs)
+#GET     /api/kerbs                     controllers.KerbController.getAllKerbs
+#POST    /api/kerbs                     controllers.KerbController.createKerb
+#PUT     /api/kerbs/:id                 controllers.KerbController.updateKerb(id: Long)
+#DELETE  /api/kerbs/:id                 controllers.KerbController.deleteKerb(id: Long)
+
+# Routes for Calzadas (Roadways)
+#GET     /api/roadways                  controllers.RoadwayController.getAllRoadways
+#POST    /api/roadways                  controllers.RoadwayController.createRoadway
+#PUT     /api/roadways/:id              controllers.RoadwayController.updateRoadway(id: Long)
+#DELETE  /api/roadways/:id              controllers.RoadwayController.deleteRoadway(id: Long)
