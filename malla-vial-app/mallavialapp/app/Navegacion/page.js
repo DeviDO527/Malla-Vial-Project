@@ -1,10 +1,10 @@
-"use client"
-import React from 'react';
+"use client";
+import { Link } from 'react-router-dom';
 
 export default function Navegacion() {
   return (
     <div className = "container">
-        <div>
+        <div className="container text-center" style={{ margin: "30px" }}>
             <nav className="navbar navbar-expand-lg navbar-dark bg-success ">
                 <div className="container-fluid">
                     <a className="navbar-brand" href="/">Sistema Malla Vial</a>
@@ -22,9 +22,10 @@ export default function Navegacion() {
                     <div className="collapse navbar-collapse" id="navbarNavAltMarkup">
                         <div className="navbar-nav">
                             <a className="nav-link active" aria-current="page" href="/">Inicio</a>
-                            <a className="nav-link" href="/">Segmentos</a>
+                            <a className="nav-link" href="./Segmentos">Segmentos</a>
                             <a className="nav-link" href="#">Bordillos</a>
                             <a className="nav-link" href = "#" >Calzadas</a>
+                            <a className="nav-link" href = "/AgregarSegmento">Agregar Segmento</a>
                         </div>
                     </div>
                 </div>

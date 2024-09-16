@@ -1,14 +1,14 @@
 // import Image from "next/image";
 // import styles from "./page.module.css";
-
-import Navegacion from "./Nav/Navegacion";
-import ListadoSegmentos from "./Segmentos/ListadoSegmentos";
+import Navegacion from "./Navegacion/page";
+import ListadoSegmentos from "./Segmentos/page";
 
 export default function Home() {
   return (
-    <div className = "container">
+    <div className = "container align-middle">
       <Navegacion/>
-      <ListadoSegmentos />
+     <ListadoSegmentos/>
     </div>
+   
   );
 }
