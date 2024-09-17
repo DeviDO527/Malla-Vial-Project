@@ -6,8 +6,8 @@ import ListadoSegmentos from "./Segmentos/page";
 export default function Home() {
   return (
     <div className = "container align-middle">
-      <Navegacion/>
-     <ListadoSegmentos/>
+    <Navegacion/>
+    <ListadoSegmentos/>
     </div>
    
   );

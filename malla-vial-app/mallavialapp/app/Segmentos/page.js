@@ -1,5 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
+import Navegacion from "../Navegacion/page";
+import axios from "axios";
 
 
 export default function ListadoSegmentos() {
@@ -21,18 +23,24 @@ export default function ListadoSegmentos() {
     }
   };
 
+  const eliminarSegmento = async (idSegmento) => {
+    await axios.delete(`${urlBase}/MV-app/segmentos/${idSegmento}`);
+    cargarSegmentos();
+  }
+
   return (
     <div className="container">
-      <div className="container text-center" style={{ margin: "30px" }}>
-        <table className="table table-striped table-hover align-middle">
-          <thead className="table-dark align-middle">
+      <div className="container text-center mb-3" >
+        <table className="table table-striped table-hover mb-3">
+          <thead className="table-dark ">
             <tr>
               <th scope="col">Segmento</th>
               <th scope="col">Dirección</th>
               <th scope="col">Longitud</th>
-              <th scope="col">Bordillos</th>
-              <th scope="col">Calzadas</th>
+              <th scope="col">Opciones</th>
+              <th></th>
             </tr>
+            
           </thead>
           <tbody>
             {
@@ -42,11 +50,18 @@ export default function ListadoSegmentos() {
                   <th scope="row">{segmento.idSegmento}</th>
                   <td>{segmento.direccion}</td>
                   <td>{segmento.longitud}</td>
-                  <td>{segmento.activo}</td>
-                  <td>{segmento.actualiza}</td>
+                  <td className = "text-center">
+                    <div className = "text-center" style={{margin: "5px"}}>
+                      <a href = {`/EditarSegmento/${segmento.idSegmento}`} className = "btn btn-warning btn-sm me-3" style = {{margin:"3px"}}>Editar</a>
+                      <button onClick={()=>eliminarSegmento(segmento.idSegmento)} className = "btn btn-danger btn-sm me-3" style = {{margin: "3px"}}>
+                        Eliminar
+                      </button>
+                    </div>
+                  </td>
                 </tr>
               ))
             }
+            
           </tbody>
         </table>
       </div>

@@ -1,12 +1,15 @@
 "use client";
 import React, { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom';
-import Navegacion from '../Navegacion/page';
-import axios from 'axios';
+import { Await, useNavigate, useParams } from 'react-router-dom';
+import axios, { Axios } from 'axios';
 import { useRouter } from 'next/router';
+import Navegacion from '@/app/Navegacion/page';
 
-export default function AgregarSegmento() {
+export default function EditarSegmento() {
 
+    const urlBase = "http://localhost:8081/MV-app/segmentos";
+
+    const {id} = useParams();
 
   const [segmento, setSegmento] = useState({
     direccion: "",
@@ -15,14 +18,22 @@ export default function AgregarSegmento() {
 
   const{direccion, longitud} = segmento
 
+  useEffect(() => {
+    cargarSegmento();
+  },[])  
+
+  const cargarSegmento = async () => {
+    const respuesta = await axios.get(`${urlBase}/${id}`,segmento);
+    setSegmento(respuesta.data);
+  }
+  
   const onInputChange = (e) => {
     setSegmento({...segmento, [e.target.name]: e.target.value});
   }
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    const urlBase = "http://localhost:8081/MV-app/segmentos";
-    await axios.post(urlBase, segmento);
+    await axios.put(`${urlBase}/${id}`, segmento);
   }
 
   return (
@@ -40,7 +51,7 @@ export default function AgregarSegmento() {
           </div>
           <div className = "text-center">
             
-            <button type="submit" className="btn btn-warning btn-sm" style={{margin: "20px"}}>Agregar</button>
+            <button type="submit" className="btn btn-warning btn-sm" style={{margin: "20px"}}>Guardar</button>
             <a href = "/" className= "btn btn-danger btn-sm">Volver</a>
           </div>
         </form>
