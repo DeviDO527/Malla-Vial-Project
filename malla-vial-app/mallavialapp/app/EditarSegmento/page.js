@@ -49,16 +49,15 @@ export default function EditarSegmento() {
           </div>
           <div className="mb-3">
             <label htmlFor="longitudSegmento" className="form-label" >Longitud del Segmento</label>
-            <input type="text" className="form-control" id="longitud" name = "longitud" Value = {longitud} onChange = {(e)=>onInputChange(e)}/>
+            <input type="text" className="form-control" id="longitud" name = "longitud" value = {longitud} onChange = {(e)=>onInputChange(e)}/>
           </div>
           <div className = "text-center">
             
             <button type="submit" className="btn btn-warning btn-sm" style={{margin: "20px"}}>Guardar</button>
-            <a href = "/" className= "btn btn-danger btn-sm">Volver</a>
+            <a href = "http:localhost:3000/" className= "btn btn-danger btn-sm">Volver</a>
           </div>
         </form>
       </div>
     </div>
   )
 }
-

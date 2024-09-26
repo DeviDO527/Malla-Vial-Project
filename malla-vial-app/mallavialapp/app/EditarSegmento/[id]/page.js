@@ -1,62 +1,86 @@
-"use client";
+"use client"
+
 import React, { useEffect, useState } from 'react'
-import { Await, useNavigate, useParams } from 'react-router-dom';
-import axios, { Axios } from 'axios';
-import { useRouter } from 'next/router';
-import Navegacion from '@/app/Navegacion/page';
+import { useRouter } from 'next/navigation'
+import axios from 'axios'
+import Navegacion from '@/app/Navegacion/page'
 
-export default function EditarSegmento() {
-
-    const urlBase = "http://localhost:8081/MV-app/segmentos";
-
-    const {id} = useParams();
+export default function EditarSegmento({ params }) {
+  const router = useRouter()
+  const { id } = params
+  const urlBase = "http://localhost:8081/MV-app/segmentos"
 
   const [segmento, setSegmento] = useState({
     direccion: "",
     longitud: ""
-  }); // Hook de estado
+  })
 
-  const{direccion, longitud} = segmento
+  const { direccion, longitud } = segmento
 
   useEffect(() => {
-    cargarSegmento();
-  },[])  
+    cargarSegmento()
+  }, [id])
 
   const cargarSegmento = async () => {
-    const respuesta = await axios.get(`${urlBase}/${id}`,segmento);
-    setSegmento(respuesta.data);
+    try {
+      const respuesta = await axios.get(`${urlBase}/${id}`)
+      setSegmento(respuesta.data)
+    } catch (error) {
+      console.error("Error al cargar el segmento:", error)
+      // Aquí puedes manejar el error, por ejemplo, mostrando un mensaje al usuario
+    }
   }
-  
+
   const onInputChange = (e) => {
-    setSegmento({...segmento, [e.target.name]: e.target.value});
+    setSegmento({ ...segmento, [e.target.name]: e.target.value })
   }
 
   const onSubmit = async (e) => {
-    e.preventDefault();
-    await axios.put(`${urlBase}/${id}`, segmento);
+    e.preventDefault()
+    try {
+      await axios.put(`${urlBase}/${id}`, segmento)
+      router.push('/')
+    } catch (error) {
+      console.error("Error al actualizar el segmento:", error)
+      // Aquí puedes manejar el error, por ejemplo, mostrando un mensaje al usuario
+    }
   }
 
   return (
-    <div className = "container">
-      <Navegacion/>
-      <div className = "mb-3" style = {{margin: "30px"}}>
-        <form onSubmit={(e)=>onSubmit(e)}>
+    <div className="container">
+      <Navegacion />
+      <div className="mb-3" style={{ margin: "30px" }}>
+      <h2 className="text-2xl font-bold mb-4">Editar Segmento Actual</h2>
+        <form onSubmit={onSubmit}>
           <div className="mb-3">
-            <label htmlFor="direccionSegmento" className="form-label">Direción del segmento</label>
-            <input type="text" className="form-control" id="direccion" name = "direccion" required = {true} Value ={direccion} onChange = {(e)=>onInputChange(e)} />
+            <label htmlFor="direccion" className="form-label">Dirección del segmento</label>
+            <input
+              type="text"
+              className="form-control"
+              id="direccion"
+              name="direccion"
+              required={true}
+              value={direccion}
+              onChange={onInputChange}
+            />
           </div>
           <div className="mb-3">
-            <label htmlFor="longitudSegmento" className="form-label" >Longitud del Segmento</label>
-            <input type="text" className="form-control" id="longitud" name = "longitud" Value = {longitud} onChange = {(e)=>onInputChange(e)}/>
+            <label htmlFor="longitud" className="form-label">Longitud del Segmento</label>
+            <input
+              type="text"
+              className="form-control"
+              id="longitud"
+              name="longitud"
+              value={longitud}
+              onChange={onInputChange}
+            />
           </div>
-          <div className = "text-center">
-            
-            <button type="submit" className="btn btn-warning btn-sm" style={{margin: "20px"}}>Guardar</button>
-            <a href = "/" className= "btn btn-danger btn-sm">Volver</a>
+          <div className="text-center">
+            <button type="submit" className="btn btn-primary btn-sm" style={{ margin: "20px" }}>Guardar</button>
+            <button onClick={() => router.push('/')} className="btn btn-danger btn-sm">Cancelar</button>
           </div>
         </form>
       </div>
     </div>
   )
 }
-
